@@ -23,7 +23,10 @@ jobs:
         deno: ["v1.x", "nightly"]
         os: [macOS-latest, windows-latest, ubuntu-latest]
 
-    steps:
+    steps:      
+      - name: ACTIONS_ALLOW_UNSECURE_COMMANDS
+        run: echo 'ACTIONS_ALLOW_UNSECURE_COMMANDS=true' >> $GITHUB_ENV      
+          
       - name: Setup repo
         uses: actions/checkout@v2
 
@@ -36,7 +39,4 @@ jobs:
         run: deno cache deps.ts
 
       - name: Run Tests
-        run: deno test -A --unstable
-        
-      - name: ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo 'ACTIONS_ALLOW_UNSECURE_COMMANDS=true' >> $GITHUB_ENV
+        run: deno test -A --unstable    
